@@ -10,8 +10,8 @@ function App() {
 		const response = await fetch('https://playground.4geeks.com/todo/users/thetiredtiger');
 		if (response.ok) {
 			const data = await response.json();
-			console.log(data)
-			return data;
+			console.log(data.todos);
+			setList(data.todos);
 		} else {
 				console.log('error: ', response.status, response.statusText);
 			return {error: {status: response.status, statusText: response.statusText}};
@@ -24,7 +24,7 @@ function App() {
 
 	// POST
 	async function addData (e) {
-		if(e.key === "Enter"){
+		if(e.key === "Enter" && task.trim() !== ""){
 			const sendToAPI = await fetch("https://playground.4geeks.com/todo/todos/thetiredtiger", {
 				method: 'POST', 
 				headers: {"Content-type": "application/json"},
@@ -32,6 +32,7 @@ function App() {
 			});
 			setList([...list, {label: task, is_done: false}]);
 			setTask("");
+			getData();
 		}
 	}
 
