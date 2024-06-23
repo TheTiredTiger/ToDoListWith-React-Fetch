@@ -13,7 +13,7 @@ function App() {
 			console.log(data.todos);
 			setList(data.todos);
 		} else {
-				console.log('error: ', response.status, response.statusText);
+			console.log('error: ', response.status, response.statusText);
 			return {error: {status: response.status, statusText: response.statusText}};
 		};
 	}
@@ -37,14 +37,24 @@ function App() {
 	}
 
 	//DELETE
-	async function deleteData (index){
+	async function deleteData(index) {
 		const deleteTask = await fetch(`https://playground.4geeks.com/todo/todos/${list[index].id}`, {
 			method: "DELETE",
 		});
 		getData();
 	}
 
+	//DELETE USER
+ 	async function handleDeleteUser () {
+		const deleteAll = await fetch('https://playground.4geeks.com/todo/users/inestell'
+		, {
+			method: "DELETE"
+		});
+		setList([]);
+	}
+
   return (
+	<>
 	  <div className='container-fluid'>
 		<h1>My To-Do List</h1>
 		<table className="table table-hover">
@@ -62,26 +72,27 @@ function App() {
 			</tr>
 			</thead>
 			<tbody>
-				{list.map((item, index) => {
-					<tr> 
-						<td key={index}>
-							{item.label}
-						</td>
-						<td
-							onClick={() => deleteData(index)}>
-							<i class="fa fa-times" aria-hidden="true"></i>
-						</td>
+				{list.map((item, index) => (
+					<tr key={index}>
+					<td>{item.label}</td>
+					<td className="hidden">
+						<i className="fa fa-times" aria-hidden="true"
+						onClick={() => deleteData(index)}></i>
+					</td>
 					</tr>
-				})}
+				))}
 				<tr>
-					<td scope="row"
-					className="tasksLeft">
-						{list.length === 1? `${list.length} task left` : `${list.length} tasks left`}
+					<td colSpan="2" className="tasksLeft">
+					{list.length === 1? `${list.length} task left` : `${list.length} tasks left`}
 					</td>
 				</tr>
 			</tbody>
 		</table>
+ 		<div className="deleteAllButton">
+			<button onClick={handleDeleteUser}>Delete all</button>
+		</div>
 	  </div>
+	</>
   )
 };
 
