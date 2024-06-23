@@ -98,15 +98,3 @@ function App() {
 
 
 export default App
-
-// add username + a task to API --> DONE --> https://playground.4geeks.com/todo/todos/thetiredtiger
-
-// create get fetch request + UseEffect --> DONE
-
-// create post fetch request --> add a get request (getRequest()) at the end of the post request to get the updated list --> DONE
-
-// create delete option that will remove username from the API --> DONE
-
-// create controlled input --> DONE
-
-// create array with task objects
